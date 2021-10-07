@@ -3,10 +3,10 @@
 namespace Orlyapps\NovaPostmark;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Laravel\Nova\Nova;
 use Orlyapps\NovaPostmark\Models\Letter;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class NovaPostmarkServiceProvider extends PackageServiceProvider
 {
@@ -23,14 +23,15 @@ class NovaPostmarkServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_nova-postmark_table');
     }
+
     public function bootingPackage()
     {
         Nova::resources([
-            \Orlyapps\NovaPostmark\Nova\Letter::class
+            \Orlyapps\NovaPostmark\Nova\Letter::class,
         ]);
 
         Relation::morphMap([
-            'letter' => Letter::class
+            'letter' => Letter::class,
         ]);
     }
 }

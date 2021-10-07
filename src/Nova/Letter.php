@@ -3,18 +3,18 @@
 namespace Orlyapps\NovaPostmark\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 use Orlyapps\NovaPostmark\Nova\Actions\Preview;
 use Orlyapps\NovaTexteditor\Nova\Fields\TextEditor;
-use Laravel\Nova\Fields\MorphTo;
 
 class Letter extends Resource
 {
     /**
      * Sort Index (Custom)
      *
-     * @var integer
+     * @var int
      */
     public static function index()
     {
@@ -85,7 +85,7 @@ class Letter extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'subject'
+        'id', 'subject',
     ];
 
     /**
@@ -103,7 +103,7 @@ class Letter extends Resource
                 ->rules('required'),
             TextEditor::make(__('Text'))
                 ->hideFromIndex()
-                ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede'])
+                ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede']),
 
         ];
     }
@@ -150,7 +150,7 @@ class Letter extends Resource
     public function actions(Request $request)
     {
         return [
-            Preview::make()
+            Preview::make(),
         ];
     }
 }

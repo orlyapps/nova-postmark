@@ -10,7 +10,8 @@ use Laravel\Nova\Fields\ActionFields;
 
 class Preview extends Action
 {
-    use InteractsWithQueue, Queueable;
+    use InteractsWithQueue;
+    use Queueable;
 
     public $name = 'Vorschau';
 
@@ -37,7 +38,6 @@ class Preview extends Action
      */
     public $showOnTableRow = true;
 
-
     /**
      * Perform the action on the given models.
      *
@@ -48,6 +48,7 @@ class Preview extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         $letter = $models->first();
+
         return Action::openInNewTab('/print/letters/' . $letter->id);
     }
 
