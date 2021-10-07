@@ -1,24 +1,26 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "orlyapps/nova-postmark",
+    "description": "Write letters and save them as PDF or send them directly by email.",
     "keywords": [
-        ":vendor_name",
+        "orlyapps",
         "laravel",
-        ":package_slug"
+        "nova-postmark"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/orlyapps/nova-postmark",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Florian Strauß",
+            "email": "fs@orlyapps.de",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0",
-        "spatie/laravel-package-tools": "^1.4.3",
-        "illuminate/contracts": "^8.37"
+        "php": "^7.4",
+        "illuminate/contracts": "^8.37",
+        "orlyapps/laravel-printable": "*",
+        "orlyapps/nova-texteditor": "*",
+        "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.3",
@@ -30,13 +32,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Orlyapps\\NovaPostmark\\": "src",
+            "Orlyapps\\NovaPostmark\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Orlyapps\\NovaPostmark\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -49,13 +51,23 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Orlyapps\\NovaPostmark\\NovaPostmarkServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "NovaPostmark": "Orlyapps\\NovaPostmark\\NovaPostmarkFacade"
             }
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../nova-texteditor"
+        },
+        {
+            "type": "path",
+            "url": "../laravel-printable"
+        }
+    ]
 }

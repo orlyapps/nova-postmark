@@ -8,11 +8,12 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('skeleton_table', function (Blueprint $table) {
+         Schema::create('letters', function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
+            $table->nullableMorphs('receiver');
+            $table->text('address')->nullable();
+            $table->string('subject')->nullable();
+            $table->json('text')->nullable();
             $table->timestamps();
         });
     }
