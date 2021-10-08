@@ -81,7 +81,9 @@ class SendByMail extends WorkflowAction
     {
         $id = request('resourceId') ?? request('resources');
         $letter = Letter::find($id);
-
+        if (!$letter) {
+            return [];
+        }
         return [
             ...parent::fields(),
             Text::make(__('From'))
