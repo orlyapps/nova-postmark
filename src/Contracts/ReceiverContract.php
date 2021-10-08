@@ -8,6 +8,8 @@ interface ReceiverContract
     public function getReceiverEmailAttribute(): array;
     public function getLetterInfoAttribute(): string;
     public function getSalutation(): string;
+
     public function getSalutationWithFirstname(): string;
+
     public function getSalutationInformal(): string;
 }

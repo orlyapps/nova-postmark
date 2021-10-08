@@ -3,11 +3,13 @@
 namespace Orlyapps\NovaPostmark\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Resource;
 use Orlyapps\NovaPostmark\Nova\Actions\Preview;
 use Orlyapps\NovaTexteditor\Nova\Fields\TextEditor;
+<<<<<<< HEAD
 use Laravel\Nova\Fields\MorphTo;
 use Orlyapps\NovaPostmark\Models\Letter as ModelsLetter;
 use Orlyapps\NovaPostmark\Nova\Actions\SendByMail;
@@ -15,13 +17,15 @@ use Orlyapps\NovaWorkflow\Actions\WorkflowAction;
 use Orlyapps\NovaWorkflow\Cards\WorkflowCard;
 use Orlyapps\NovaWorkflow\Fields\WorkflowBadge;
 use Orlyapps\NovaWorkflow\Filters\StatusFilter;
+=======
+>>>>>>> 3475f50ebef954ce4758e8af209dd341503fb612
 
 class Letter extends Resource
 {
     /**
      * Sort Index (Custom)
      *
-     * @var integer
+     * @var int
      */
     public static function index()
     {
@@ -92,7 +96,7 @@ class Letter extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'subject'
+        'id', 'subject',
     ];
 
     /**
@@ -119,8 +123,13 @@ class Letter extends Resource
                 ->rules('required'),
             TextEditor::make(__('Text'))
                 ->hideFromIndex()
+<<<<<<< HEAD
                 ->templateCategory('letter')
                 ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede'])
+=======
+                ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede']),
+
+>>>>>>> 3475f50ebef954ce4758e8af209dd341503fb612
         ];
     }
 
@@ -170,9 +179,13 @@ class Letter extends Resource
     public function actions(Request $request)
     {
         return [
+<<<<<<< HEAD
             WorkflowAction::make(),
             SendByMail::make(),
             Preview::make()
+=======
+            Preview::make(),
+>>>>>>> 3475f50ebef954ce4758e8af209dd341503fb612
         ];
     }
 }

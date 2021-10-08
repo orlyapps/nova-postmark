@@ -3,13 +3,16 @@
 namespace Orlyapps\NovaPostmark;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Laravel\Nova\Nova;
 use Orlyapps\NovaPostmark\Models\Letter;
+<<<<<<< HEAD
 use Orlyapps\NovaPostmark\Nova\Workflows\LetterWorkflow;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+=======
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+>>>>>>> 3475f50ebef954ce4758e8af209dd341503fb612
 
 class NovaPostmarkServiceProvider extends PackageServiceProvider
 {
@@ -26,14 +29,15 @@ class NovaPostmarkServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_nova-postmark_table');
     }
+
     public function bootingPackage()
     {
         Nova::resources([
-            \Orlyapps\NovaPostmark\Nova\Letter::class
+            \Orlyapps\NovaPostmark\Nova\Letter::class,
         ]);
 
         Relation::morphMap([
-            'letter' => Letter::class
+            'letter' => Letter::class,
         ]);
 
         app('workflow')->add(new LetterWorkflow);

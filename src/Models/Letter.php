@@ -10,7 +10,12 @@ use Orlyapps\Printable\Printable;
 
 class Letter extends Model
 {
+<<<<<<< HEAD
     use HasFactory, Printable, HasWorkflow;
+=======
+    use HasFactory;
+    use Printable;
+>>>>>>> 3475f50ebef954ce4758e8af209dd341503fb612
 
     /**
      * The attributes that should be cast to native types.
@@ -35,7 +40,6 @@ class Letter extends Model
     {
         return 'nova-postmark::layout';
     }
-
 
     public function getHtmlAttribute()
     {

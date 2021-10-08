@@ -27,6 +27,7 @@ class StringCompiler
         // to the client and confuse the user with junk.
         catch (\Exception $exception) {
             ob_get_clean();
+
             throw $exception;
         }
 
