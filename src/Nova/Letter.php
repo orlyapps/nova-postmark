@@ -173,13 +173,9 @@ class Letter extends Resource
     public function actions(Request $request)
     {
         return [
-<<<<<<< HEAD
             WorkflowAction::make(),
             SendByMail::make(),
             Preview::make()
-=======
-            Preview::make(),
->>>>>>> 3475f50ebef954ce4758e8af209dd341503fb612
         ];
     }
 }
