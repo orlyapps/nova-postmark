@@ -9,7 +9,6 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Resource;
 use Orlyapps\NovaPostmark\Nova\Actions\Preview;
 use Orlyapps\NovaTexteditor\Nova\Fields\TextEditor;
-use Laravel\Nova\Fields\MorphTo;
 use Orlyapps\NovaPostmark\Models\Letter as ModelsLetter;
 use Orlyapps\NovaPostmark\Nova\Actions\SendByMail;
 use Orlyapps\NovaWorkflow\Actions\WorkflowAction;
