@@ -18,8 +18,9 @@
     "require": {
         "php": "^7.4",
         "illuminate/contracts": "^8.37",
-        "orlyapps/laravel-printable": "*",
-        "orlyapps/nova-texteditor": "*",
+        "orlyapps/laravel-printable": "dev-main",
+        "orlyapps/nova-texteditor": "dev-main",
+        "orlyapps/nova-workflow": "^1.0",
         "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
@@ -59,15 +60,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../nova-texteditor"
-        },
-        {
-            "type": "path",
-            "url": "../laravel-printable"
-        }
-    ]
+    "prefer-stable": true
 }

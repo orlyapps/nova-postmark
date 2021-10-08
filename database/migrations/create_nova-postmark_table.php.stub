@@ -10,10 +10,15 @@ return new class extends Migration
     {
          Schema::create('letters', function (Blueprint $table) {
             $table->id();
+            $table->string('status')->default('draft');
             $table->nullableMorphs('receiver');
-            $table->text('address')->nullable();
+            $table->text('sender_address')->nullable();
+            $table->text('receiver_address')->nullable();
+            $table->text('info')->nullable();
             $table->string('subject')->nullable();
             $table->json('text')->nullable();
+            $table->date('date')->nullable();
+            $table->datetime('send_at')->nullable();
             $table->timestamps();
         });
     }

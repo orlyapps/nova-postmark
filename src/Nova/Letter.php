@@ -4,10 +4,17 @@ namespace Orlyapps\NovaPostmark\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Resource;
 use Orlyapps\NovaPostmark\Nova\Actions\Preview;
 use Orlyapps\NovaTexteditor\Nova\Fields\TextEditor;
 use Laravel\Nova\Fields\MorphTo;
+use Orlyapps\NovaPostmark\Models\Letter as ModelsLetter;
+use Orlyapps\NovaPostmark\Nova\Actions\SendByMail;
+use Orlyapps\NovaWorkflow\Actions\WorkflowAction;
+use Orlyapps\NovaWorkflow\Cards\WorkflowCard;
+use Orlyapps\NovaWorkflow\Fields\WorkflowBadge;
+use Orlyapps\NovaWorkflow\Filters\StatusFilter;
 
 class Letter extends Resource
 {
@@ -97,14 +104,23 @@ class Letter extends Resource
     public function fields(Request $request)
     {
         return [
-            MorphTo::make(__('Receiver'))->types(config('nova-postmark.receiver')),
+            WorkflowBadge::make('status', ModelsLetter::class),
+            MorphTo::make(__('Receiver'))
+                ->types(config('nova-postmark.receiver'))
+                ->nullable()
+                ->searchable(),
+            Textarea::make(__('Sender address'))->alwaysShow()->withMeta([
+                'value' => config('nova-postmark.sender_address'),
+            ]),
+            Textarea::make(__('Receiver address'))->alwaysShow()->autofill('receiver_address'),
+            Textarea::make(__('Info'))->alwaysShow()->autofill('letter_info'),
             Text::make(__('Subject'))
                 ->sortable()
                 ->rules('required'),
             TextEditor::make(__('Text'))
                 ->hideFromIndex()
+                ->templateCategory('letter')
                 ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede'])
-
         ];
     }
 
@@ -116,7 +132,9 @@ class Letter extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            WorkflowCard::make(),
+        ];
     }
 
     /**
@@ -127,7 +145,9 @@ class Letter extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            StatusFilter::make($this)
+        ];
     }
 
     /**
@@ -150,6 +170,8 @@ class Letter extends Resource
     public function actions(Request $request)
     {
         return [
+            WorkflowAction::make(),
+            SendByMail::make(),
             Preview::make()
         ];
     }

@@ -5,11 +5,12 @@ namespace Orlyapps\NovaPostmark\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orlyapps\NovaPostmark\StringCompiler;
+use Orlyapps\NovaWorkflow\Traits\HasWorkflow;
 use Orlyapps\Printable\Printable;
 
 class Letter extends Model
 {
-    use HasFactory, Printable;
+    use HasFactory, Printable, HasWorkflow;
 
     /**
      * The attributes that should be cast to native types.

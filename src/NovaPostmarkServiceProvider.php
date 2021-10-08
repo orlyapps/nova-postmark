@@ -7,6 +7,9 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Laravel\Nova\Nova;
 use Orlyapps\NovaPostmark\Models\Letter;
+use Orlyapps\NovaPostmark\Nova\Workflows\LetterWorkflow;
+use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class NovaPostmarkServiceProvider extends PackageServiceProvider
 {
@@ -32,5 +35,26 @@ class NovaPostmarkServiceProvider extends PackageServiceProvider
         Relation::morphMap([
             'letter' => Letter::class
         ]);
+
+        app('workflow')->add(new LetterWorkflow);
+
+
+        Field::macro(
+            'autofill',
+            function (string $attribute = null) {
+                $request = app(NovaRequest::class);
+
+                $shouldAutofill = $request->isCreateOrAttachRequest()
+                    && ($instance = $request->findParentModel());
+
+                if ($shouldAutofill) {
+                    $this->withMeta([
+                        'value' => $instance->{$attribute ?? $this->attribute},
+                    ]);
+                }
+
+                return $this;
+            }
+        );
     }
 }
