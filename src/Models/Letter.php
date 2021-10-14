@@ -19,11 +19,28 @@ class Letter extends Model
      */
     protected $casts = [
         'text' => 'object',
+        'send_at' => 'datetime',
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::saving(function ($letter) {
+            $letter->user()->associate(auth()->user());
+        });
+    }
 
     public function stationeryPdf()
     {
         return config('nova-postmark.stationery');
+    }
+    public function user()
+    {
+        return $this->belongsTo(config('nova-postmark.user_class'));
     }
 
     public function receiver()

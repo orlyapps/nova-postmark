@@ -2,6 +2,7 @@
 
 namespace Orlyapps\NovaPostmark\Nova\Actions;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Queue\InteractsWithQueue;
@@ -53,7 +54,6 @@ class SendByMail extends WorkflowAction
             ->withStationery(true)
             ->save();
 
-
         /**
          * E-Mail Anhang speichern
          */
@@ -69,6 +69,7 @@ class SendByMail extends WorkflowAction
         $mail->from($fields->from);
         \Mail::to($fields->to)->send($mail);
 
+        $letter->update(['send_at' => Carbon::now()]);
         parent::handle($fields, $models);
     }
 

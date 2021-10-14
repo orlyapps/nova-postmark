@@ -12,7 +12,16 @@
                 </p>
             </div>
             <div class="text-sm text-right">
-               {!! nl2br($letter->info) !!}
+                {!! nl2br($letter->info) !!}
+            </div>
+        </div>
+        <div class="flex items-center justify-between">
+            <div class="w-4/5">
+
+            </div>
+            <div class="w-1/5 text-right text-sm">
+                {{ $letter->user->shortname }} <br>
+                {{ $letter->date ? $letter->date->format('d.m.Y') : \Carbon\Carbon::now()->format('d.m.Y')}}
             </div>
         </div>
         <div class="text-base prose max-w-none">

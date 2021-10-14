@@ -10,6 +10,7 @@ return new class extends Migration
     {
          Schema::create('letters', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->index()->nullable();
             $table->string('status')->default('draft');
             $table->nullableMorphs('receiver');
             $table->text('sender_address')->nullable();

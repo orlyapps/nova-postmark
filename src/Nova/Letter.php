@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Resource;
 use Orlyapps\NovaPostmark\Nova\Actions\Preview;
 use Orlyapps\NovaTexteditor\Nova\Fields\TextEditor;
 use Orlyapps\NovaPostmark\Models\Letter as ModelsLetter;
 use Orlyapps\NovaPostmark\Nova\Actions\SendByMail;
+use Orlyapps\NovaPostmark\Nova\Actions\SendByPost;
 use Orlyapps\NovaWorkflow\Actions\WorkflowAction;
 use Orlyapps\NovaWorkflow\Cards\WorkflowCard;
 use Orlyapps\NovaWorkflow\Fields\WorkflowBadge;
@@ -42,6 +45,16 @@ class Letter extends Resource
      * @var string
      */
     public static $group = 'Einstellungen';
+
+    /**
+     * Get the text for the create resource button.
+     *
+     * @return string|null
+     */
+    public static function createButtonLabel()
+    {
+        return __('Write :resource', ['resource' => static::singularLabel()]);
+    }
 
     /**
      * Indicates if the resoruce should be globally searchable.
@@ -105,20 +118,25 @@ class Letter extends Resource
     public function fields(Request $request)
     {
         return [
-            WorkflowBadge::make('status', ModelsLetter::class),
-            MorphTo::make(__('Receiver'))
+            WorkflowBadge::make('Status', ModelsLetter::class),
+            BelongsTo::make(__('User'), 'user', config('nova-postmarkt.nova_user_class'))
+                ->searchable()
+                ->nullable()
+                ->exceptOnForms(),
+            MorphTo::make(__('Receiver'), 'receiver')
                 ->types(config('nova-postmark.receiver'))
                 ->nullable()
                 ->searchable(),
-            Textarea::make(__('Sender address'))->alwaysShow()->withMeta([
+            Textarea::make(__('Sender address'), 'sender_address')->alwaysShow()->withMeta([
                 'value' => config('nova-postmark.sender_address'),
             ]),
-            Textarea::make(__('Receiver address'))->alwaysShow()->autofill('receiver_address'),
-            Textarea::make(__('Info'))->alwaysShow()->autofill('letter_info'),
-            Text::make(__('Subject'))
+            Textarea::make(__('Receiver address'), 'receiver_address')->alwaysShow()->autofill('receiver_address'),
+            Textarea::make(__('Info'), 'info')->alwaysShow()->autofill('letter_info'),
+            Text::make(__('Subject'), 'subject')
                 ->sortable()
                 ->rules('required'),
-            TextEditor::make(__('Text'))
+            Date::make(__('Sended at'), 'send_at')->exceptOnForms(),
+            TextEditor::make(__('Text'), 'text')
                 ->hideFromIndex()
                 ->templateCategory('letter')
                 ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede']),
@@ -174,6 +192,7 @@ class Letter extends Resource
         return [
             WorkflowAction::make(),
             SendByMail::make(),
+            SendByPost::make(),
             Preview::make()
         ];
     }

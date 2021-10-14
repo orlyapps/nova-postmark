@@ -4,6 +4,7 @@ namespace Orlyapps\NovaPostmark\Nova\Workflows;
 
 use Orlyapps\NovaPostmark\Models\Letter;
 use Orlyapps\NovaPostmark\Nova\Actions\SendByMail;
+use Orlyapps\NovaPostmark\Nova\Actions\SendByPost;
 use Orlyapps\NovaWorkflow\Models\Place;
 use Orlyapps\NovaWorkflow\Models\Transition;
 use Orlyapps\NovaWorkflow\Models\WorkflowDefinition;
@@ -32,7 +33,7 @@ class LetterWorkflow extends WorkflowDefinition
     public function transitions()
     {
         return [
-            Transition::make(__('Send by post'), 'print')->from(['draft', 'sent'])->to('sent')->action(new SendByMail()),
+            Transition::make(__('Send by post'), 'print')->from(['draft', 'sent'])->to('sent')->action(new SendByPost()),
             Transition::make(__('Send by e-mail'), 'mail')->from(['draft', 'sent'])->to('sent')->action(new SendByMail()),
         ];
     }
