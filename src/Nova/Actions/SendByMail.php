@@ -87,13 +87,13 @@ class SendByMail extends WorkflowAction
         }
         return [
             ...parent::fields(),
-            Text::make(__('From'))
+            Text::make(__('From'), 'from')
                 ->default(\Auth::user()->email)
                 ->rules('required', 'email')
                 ->suggestions([
                     \Auth::user()->email,
                 ]),
-            Text::make(__('To'))
+            Text::make(__('To'), 'to')
                 ->rules('required', 'email')
                 ->default($letter->receiver->receiver_email[0])
                 ->suggestions($letter->receiver->receiver_email),
