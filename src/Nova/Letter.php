@@ -138,6 +138,8 @@ class Letter extends Resource
             Date::make(__('Sended at'), 'send_at')->exceptOnForms(),
             TextEditor::make(__('Text'), 'text')
                 ->hideFromIndex()
+                ->showHelp()
+                ->enablePreview('/print/letters/')
                 ->templateCategory('letter')
                 ->blocks(['signature' => 'Signatur', 'salutation' => 'Anrede']),
 

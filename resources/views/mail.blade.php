@@ -1,6 +1,9 @@
 @component('mail::message')
 
-## {{ $letter->subject }}
-{!! $letter->html !!}
+{{ $letter->receiver->getSalutation() }},
+
+Bitte beachten Sie anbei unser Anschreiben.
+
+<x-orlyapps-signature :user="$letter->user" />
 
 @endcomponent

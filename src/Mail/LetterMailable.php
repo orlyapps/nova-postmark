@@ -35,12 +35,12 @@ class LetterMailable extends Mailable
         $mail = $this
             ->subject($this->letter->subject)
             ->markdown('nova-postmark::mail', ['letter' => $this->letter]);
-
+        /*
         $this->attachment->each(fn ($file) => $mail->attach($file, [
             'as' => $file->getClientOriginalName(),
             'mime' => $file->getClientMimeType(),
         ]));
-
+        */
         return $mail;
     }
 }

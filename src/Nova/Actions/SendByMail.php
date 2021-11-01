@@ -49,6 +49,7 @@ class SendByMail extends WorkflowAction
     public function handle(ActionFields $fields, Collection $models)
     {
         $letter = $models->first();
+
         $pdfFile = $letter->print()
             ->user(\Auth::user())
             ->withStationery(true)
