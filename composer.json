@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/contracts": "^8.37",
+        "illuminate/contracts": "^8.37|^9.0",
         "orlyapps/laravel-printable": "dev-main",
         "orlyapps/nova-texteditor": "dev-main",
         "orlyapps/nova-workflow": "^1.0",
