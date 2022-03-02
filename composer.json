@@ -20,7 +20,7 @@
         "illuminate/contracts": "^8.37|^9.0",
         "orlyapps/laravel-printable": "dev-main",
         "orlyapps/nova-texteditor": "dev-main",
-        "orlyapps/nova-workflow": "^1.0",
+        "orlyapps/nova-workflow": "dev-master",
         "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
