@@ -4,5 +4,4 @@ return [
     'nova_user_class' => \App\Nova\User::class,
     'receiver' => [],
     'stationery' => null,
-    'sender_address' => 'Orlyapps • Azaleenweg 29 • 26160 Bad Zwischenahn'
 ];

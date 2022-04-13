@@ -19,7 +19,6 @@ use Orlyapps\NovaWorkflow\Cards\WorkflowCard;
 use Orlyapps\NovaWorkflow\Fields\WorkflowBadge;
 use Orlyapps\NovaWorkflow\Filters\StatusFilter;
 
-
 class Letter extends Resource
 {
     /**
@@ -127,10 +126,12 @@ class Letter extends Resource
                 ->types(config('nova-postmark.receiver'))
                 ->nullable()
                 ->searchable(),
-            Textarea::make(__('Sender address'), 'sender_address')->alwaysShow()->withMeta([
-                'value' => config('nova-postmark.sender_address'),
-            ]),
-            Textarea::make(__('Receiver address'), 'receiver_address')->alwaysShow()->autofill('receiver_address'),
+            Textarea::make(__('Sender address'), 'sender_address')
+                ->alwaysShow()
+                ->autofill('sender_address'),
+            Textarea::make(__('Receiver address'), 'receiver_address')
+                ->alwaysShow()
+                ->autofill('receiver_address'),
             Textarea::make(__('Info'), 'info')->alwaysShow()->autofill('letter_info'),
             Text::make(__('Subject'), 'subject')
                 ->sortable()

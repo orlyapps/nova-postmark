@@ -4,6 +4,7 @@ namespace Orlyapps\NovaPostmark\Contracts;
 
 interface ReceiverContract
 {
+    public function getSenderAddressAttribute(): string;
     public function getReceiverAddressAttribute(): string;
     public function getReceiverEmailAttribute(): array;
     public function getLetterInfoAttribute(): string;
